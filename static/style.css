@@ -1,0 +1,57 @@
+/* Global Dark Theme */
+body {
+    background-color: #1e1e2f;
+    color: #e0e0e0;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Headings and highlights */
+h1, h2, h3, h4, h5 {
+    color: #a3bffa;
+}
+
+/* Card Styling */
+.card {
+    background-color: #2a2a3b;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    color: #e0e0e0;
+    margin-bottom: 20px;
+}
+
+/* Muted text */
+.text-muted {
+    color: #a0a0b5 !important;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+}
+.btn-primary:hover {
+    background-color: #2563eb;
+    border-color: #2563eb;
+}
+
+.btn-secondary {
+    background-color: #6b7280;
+    border-color: #6b7280;
+}
+.btn-secondary:hover {
+    background-color: #4b5563;
+    border-color: #4b5563;
+}
+
+/* List styling */
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+ul li {
+    background-color: #2a2a3b;
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 8px;
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Report</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1>Campaign Report: {{ campaign.name }}</h1>
+        <p class="text-muted">Overview of user interactions for this phishing campaign</p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row text-center mb-5">
+        <div class="col-md-4">
+            <div class="card p-3">
+                <h4>Total Users</h4>
+                <p class="fs-3">{{ total_users }}</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-3">
+                <h4>Users Who Clicked</h4>
+                <p class="fs-3">{{ clicked_users|length }}</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-3">
+                <h4>Click Rate</h4>
+                <p class="fs-3">{{ click_rate }}%</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="row mb-5">
+        <div class="col-md-6 offset-md-3">
+            <div class="card p-3">
+                <h4 class="text-center mb-3">Click Distribution</h4>
+                <canvas id="clickChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clicked Users -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h4>Clicked Users</h4>
+                {% if clicked_users %}
+                <ul>
+                    {% for user in clicked_users %}
+                        <li>{{ user.name }} ({{ user.email }}) - {{ user.department }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-muted">No users clicked this campaign.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Non-Clicked Users -->
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h4>Users Who Did Not Click</h4>
+                {% if non_clicked_users %}
+                <ul>
+                    {% for user in non_clicked_users %}
+                        <li>{{ user.name }} ({{ user.email }}) - {{ user.department }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-muted">All users clicked this campaign.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="text-center mt-4">
+        <a href="/" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</div>
+
+<!-- Chart.js Script -->
+<script>
+    const clickData = JSON.parse('{{ chart_data | tojson | safe }}');
+
+    const ctx = document.getElementById('clickChart');
+    const clickChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Clicked', 'Did Not Click'],
+            datasets: [{
+                data: clickData,
+                backgroundColor: ['#3b82f6', '#6b7280']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: { color: '#e0e0e0' }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
