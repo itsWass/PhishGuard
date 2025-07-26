@@ -21,7 +21,23 @@ db.init_app(app)
 @app.route('/')
 def home():
     campaigns = Campaign.query.all()
-    return render_template('home.html', campaigns=campaigns)
+    
+    # Build campaign data with click stats
+    campaign_data = []
+    total_users = User.query.count()  # same total users for all campaigns
+
+    for campaign in campaigns:
+        clicked_count = len(campaign.clicks)
+        click_rate = round((clicked_count / total_users) * 100, 2) if total_users else 0
+
+        campaign_data.append({
+            'id': campaign.id,
+            'name': campaign.name,
+            'created_at': campaign.created_at,
+            'click_rate': click_rate
+        })
+
+    return render_template('home.html', campaigns=campaign_data)
 
 # Debug route to view data
 @app.route('/debug')
@@ -107,6 +123,19 @@ def create_campaign():
         return redirect(url_for('home'))
 
     return render_template('create_campaign.html')
+
+@app.route('/delete-campaign/<int:campaign_id>', methods=['POST'])
+def delete_campaign(campaign_id):
+    campaign = Campaign.query.get_or_404(campaign_id)
+
+    # Delete related clicks first (to avoid orphan data)
+    for click in campaign.clicks:
+        db.session.delete(click)
+
+    db.session.delete(campaign)
+    db.session.commit()
+
+    return redirect(url_for('home'))
 
 # Run the app
 if __name__ == '__main__':
