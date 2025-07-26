@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card p-4 mt-5">
+    <h2>Oops! This was a phishing simulation.</h2>
+    <p>Here are some tips to improve your awareness:</p>
+    <ul class="text-light">
+        <li>Always verify the sender email address before clicking links.</li>
+        <li>Hover over links to check their actual destination before clicking.</li>
+        <li>Be cautious of urgent requests or fear-based messages that pressure you.</li>
+        <li>If unsure, contact IT security before taking any action.</li>
+    </ul>
+    <hr class="my-4">
+    <h4></h4>Thank you for your feedback!</h4>
+    <p></p>Your response will help us improve phishing awareness and training.</p>
+    <div class="text-center mt-3">
+        <a href="{{ url_for('home') }}" class="btn btn-primary">Return to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

@@ -76,15 +76,21 @@ def send_emails(campaign_id):
 
     return jsonify({"status": "emails sent", "campaign_id": campaign.id})
 
-@app.route('/track/<int:campaign_id>/<int:user_id>')
+@app.route('/track/<int:campaign_id>/<int:user_id>', methods=['GET', 'POST'])
 def track_click(campaign_id, user_id):
-    # Create a new click record
-    click = Click(user_id=user_id, campaign_id=campaign_id)
-    db.session.add(click)
-    db.session.commit()
+    if request.method == 'POST':
+        reason = request.form.get('reason')
 
-    # Show the clicked page
-    return render_template('clicked.html')
+        # Log click with reason
+        click = Click(user_id=user_id, campaign_id=campaign_id, reason=reason)
+        db.session.add(click)
+        db.session.commit()
+
+        return redirect(url_for('awareness'))  # awareness page after submission
+
+    # Show reason form (user sees this when they click the email link)
+    return render_template('reason_form.html', campaign_id=campaign_id, user_id=user_id)
+
 
 @app.route('/report/<int:campaign_id>')
 def report(campaign_id):
@@ -155,6 +161,9 @@ def simulate_campaign_clicks(campaign_id):
 
     return redirect(url_for('home'))
 
+@app.route('/awareness')
+def awareness():
+    return render_template('awareness.html')
 
 # Run the app
 if __name__ == '__main__':

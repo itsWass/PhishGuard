@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card p-4">
+        <h2 class="text-light mb-3">Why did you click this link?</h2>
+        <form method="POST">
+            <div class="mb-3">
+                <label for="reason" class="form-label text-light">Your Reason</label>
+                <textarea name="reason" id="reason" class="form-control" rows="4"
+                          placeholder="Explain why you clicked the link..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
