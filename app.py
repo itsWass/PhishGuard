@@ -7,6 +7,7 @@ from models import Click
 from flask import render_template
 from flask import render_template
 from flask import request, redirect, url_for
+import random
 
 app = Flask(__name__)
 
@@ -136,6 +137,24 @@ def delete_campaign(campaign_id):
     db.session.commit()
 
     return redirect(url_for('home'))
+
+@app.route('/simulate-campaign-clicks/<int:campaign_id>', methods=['POST'])
+def simulate_campaign_clicks(campaign_id):
+    campaign = Campaign.query.get_or_404(campaign_id)
+
+    # Find users who haven't clicked yet
+    clicked_user_ids = [click.user_id for click in campaign.clicks]
+    non_clicked_users = User.query.filter(~User.id.in_(clicked_user_ids)).all()
+
+    # Simulate click for ONE random user
+    if non_clicked_users:
+        random_user = random.choice(non_clicked_users)
+        click = Click(user_id=random_user.id, campaign_id=campaign.id)
+        db.session.add(click)
+        db.session.commit()
+
+    return redirect(url_for('home'))
+
 
 # Run the app
 if __name__ == '__main__':

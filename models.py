@@ -24,3 +24,4 @@ class Click(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     campaign_id = db.Column(db.Integer, db.ForeignKey('campaigns.id'), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    # reason = db.Column(db.String(255), nullable=True)
