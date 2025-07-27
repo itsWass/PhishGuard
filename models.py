@@ -25,3 +25,4 @@ class Click(db.Model):
     campaign_id = db.Column(db.Integer, db.ForeignKey('campaigns.id'), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     reason = db.Column(db.Text, nullable=True)
+    user = db.relationship('User', backref=db.backref('clicks', lazy=True))

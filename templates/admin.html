@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <h2 class="text-light mb-4">Admin Panel: Clicks & Reasons</h2>
+
+  {% for campaign in campaigns %}
+  <div class="card mb-4">
+    <div class="card-body">
+      <h4 class="card-title">{{ campaign.name }}</h4>
+      {% if campaign.clicks %}
+        <div class="table-responsive">
+          <table class="table table-dark table-striped mt-3">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Department</th>
+                <th>Reason</th>
+                <th>When</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for click in campaign.clicks %}
+              <tr>
+                <td>{{ click.user.name }}</td>
+                <td>{{ click.user.department or '—' }}</td>
+                <td>{{ click.reason or 'No reason provided' }}</td>
+                <td>{{ click.timestamp.strftime('%Y‑%m‑%d %H:%M') }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="text-muted mt-2">No clicks recorded yet for this campaign.</p>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

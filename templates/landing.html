@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome | Phishing Simulation Tool</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #1e1e2f;
+      color: #e0e0e0;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+    }
+    /* Navbar */
+    .navbar {
+      background-color: #2a2a3b;
+    }
+    .navbar-brand, .nav-link {
+      color: #e0e0e0 !important;
+    }
+    .nav-link:hover {
+      color: #3b82f6 !important;
+    }
+    /* Hero Section */
+    .hero {
+      padding: 100px 20px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      color: #a3bffa;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: #c0c0d0;
+      margin-bottom: 30px;
+    }
+    .btn-cta {
+      background-color: #3b82f6;
+      border-color: #3b82f6;
+      padding: 12px 32px;
+      font-size: 1rem;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    .btn-cta:hover {
+      background-color: #2563eb;
+      border-color: #2563eb;
+    }
+    /* Features Section */
+    .features {
+      padding: 60px 0;
+    }
+    .feature-card {
+      background-color: #2a2a3b;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      height: 100%;
+    }
+    .feature-card h3 {
+      color: #a3bffa;
+      margin-bottom: 15px;
+    }
+    .feature-card p {
+      color: #c0c0d0;
+    }
+    /* Examples Section */
+    .examples {
+      padding: 60px 0;
+      background-color: #292937;
+    }
+    .example-img {
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      width: 100%;
+      height: auto;
+    }
+    .examples p {
+      color: #e0e0e0;
+    }
+    /* Testimonials Section */
+    .testimonials {
+      padding: 60px 0;
+    }
+    .testimonial-card {
+      background-color: #2a2a3b;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .testimonial-content {
+      font-style: italic;
+      color: #c0c0d0;
+      margin-bottom: 15px;
+    }
+    .testimonial-author {
+      font-weight: bold;
+      color: #a3bffa;
+    }
+    /* Footer */
+    footer {
+      padding: 40px 20px;
+      text-align: center;
+      color: #777;
+      font-size: 0.9rem;
+      background-color: #2a2a3b;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="#">PhishingSim</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('landing') }}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_panel') }}">Admin Panel</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Phishing Simulation Tool</h1>
+    <p>Empower your team with realistic phishing campaigns and comprehensive reporting.</p>
+    <a href="{{ url_for('home') }}" class="btn btn-cta">Get Started</a>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features container text-light">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="feature-card">
+          <h3>Create & Customize</h3>
+          <p>Build tailored phishing templates: fake invoices, password resets, package alerts, and more.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <h3>Automated Delivery</h3>
+          <p>Leverage SMTP integration to send campaigns at scale or schedule timed tests.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <h3>Feedback & Training</h3>
+          <p>Capture why users clicked and provide tailored awareness tips immediately.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Examples Section -->
+  <section class="examples container text-center">
+    <h2 class="text-light mb-5">See It In Action</h2>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <img src="{{ url_for('static', filename='img/c.png') }}" alt="Dashboard screenshot" class="example-img">
+      </div>
+      <div class="col-md-6 mb-4">
+        <img src="{{ url_for('static', filename='img/report.png') }}" alt="Report screenshot" class="example-img">
+      </div>
+    </div>
+    <p>Easy-to-read charts, click distributions, and individual feedback at a glance.</p>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials container text-light">
+    <h2 class="text-light text-center mb-5">What Our Users Say</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="testimonial-card">
+          <p class="testimonial-content">“PhishingSim helped us reduce click rates by 70% in just one quarter!”</p>
+          <p class="testimonial-author">– Jane Doe, IT Security Manager</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="testimonial-card">
+          <p class="testimonial-content">“The reason feedback feature is a game-changer for targeted training.”</p>
+          <p class="testimonial-author">– John Smith, HR Director</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="testimonial-card">
+          <p class="testimonial-content">“Setup was a breeze, and the reports are incredibly insightful.”</p>
+          <p class="testimonial-author">– Alice Johnson, Compliance Lead</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Phishing Simulation Tool &middot; <a href="#" style="color:#a3bffa;">Privacy Policy</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

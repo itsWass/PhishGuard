@@ -5,39 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phishing Simulation</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/phish.png') }}">
     <style>
-        body {
+        /* Reset styles */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
             background-color: #1e1e2f;
-            color: #e0e0e0;
             font-family: 'Inter', sans-serif;
         }
-        .navbar {
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
             background-color: #2a2a3b;
-        }
-        .navbar-brand {
             color: #a3bffa;
-            font-weight: bold;
+            height: 100vh;
+            padding: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
         }
-        .navbar-brand:hover {
+
+        .sidebar h3 {
+            margin-bottom: 20px;
+            color: #a3bffa;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .sidebar a:hover {
+            background-color: #3b82f6;
             color: #fff;
         }
-        .card {
-            background-color: #2a2a3b !important;
-            color: #e0e0e0 !important;
-        } */
-        .card h2 {
-            color: #a3bffa !important;
+
+        /* Main content area */
+        .main-content {
+            margin-left: 240px;
+            padding: 20px;
+            color: #e0e0e0;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('home') }}">Phishing Sim</a>
-        </div>
-    </nav>
-    
-    <div class="container mt-4">
+    <div class="sidebar">
+        <h3>Phishing Sim</h3>
+        <!-- <p style="color: white;">Sidebar is working!</p> -->
+        <a href="{{ url_for('landing') }}">Home</a>
+        <a href="{{ url_for('home') }}">Dashboard</a>
+        <a href="{{ url_for('admin_panel') }}">Admin Panel</a>
+    </div>
+    <div class="main-content">
         {% block content %}{% endblock %}
     </div>
 </body>

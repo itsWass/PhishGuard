@@ -20,25 +20,9 @@ db.init_app(app)
 
 # Home route
 @app.route('/')
-def home():
-    campaigns = Campaign.query.all()
+def landing():
+    return render_template('landing.html')
     
-    # Build campaign data with click stats
-    campaign_data = []
-    total_users = User.query.count()  # same total users for all campaigns
-
-    for campaign in campaigns:
-        clicked_count = len(campaign.clicks)
-        click_rate = round((clicked_count / total_users) * 100, 2) if total_users else 0
-
-        campaign_data.append({
-            'id': campaign.id,
-            'name': campaign.name,
-            'created_at': campaign.created_at,
-            'click_rate': click_rate
-        })
-
-    return render_template('home.html', campaigns=campaign_data)
 
 # Debug route to view data
 @app.route('/debug')
@@ -164,6 +148,32 @@ def simulate_campaign_clicks(campaign_id):
 @app.route('/awareness')
 def awareness():
     return render_template('awareness.html')
+
+@app.route('/admin')
+def admin_panel():
+    # Load all campaigns (with their clicks eagerly)
+    campaigns = Campaign.query.order_by(Campaign.created_at.desc()).all()
+    return render_template('admin.html', campaigns=campaigns)
+
+# @app.route('/landing')
+# def landing():
+#     return render_template('landing.html')
+
+@app.route('/home')
+def home():
+    campaigns = Campaign.query.all()
+    campaign_data = []
+    total_users = User.query.count()
+    for campaign in campaigns:
+        clicked_count = len(campaign.clicks)
+        click_rate = round((clicked_count / total_users) * 100, 2) if total_users else 0
+        campaign_data.append({
+            'id': campaign.id,
+            'name': campaign.name,
+            'created_at': campaign.created_at,
+            'click_rate': click_rate
+        })
+    return render_template('home.html', campaigns=campaign_data)
 
 # Run the app
 if __name__ == '__main__':
